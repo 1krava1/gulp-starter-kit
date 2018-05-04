@@ -7,9 +7,7 @@ var gulpSequence = require('gulp-sequence');
 var bs           = require('browser-sync').create();
 var pug          = require('gulp-pug');
 
-gulp.task('default', ['css', 'js', 'pug'], function() {
-  // place code for your default task here
-});
+gulp.task('default', ['css', 'js', 'pug'], function() {});
 
 gulp.task('serve', ['default', 'css:watch', 'js:watch', 'pug:watch'],function(){
     bs.init({
@@ -27,7 +25,11 @@ gulp.task('scss', function() {
            .pipe(gulp.dest('./src/css'));
 });
 gulp.task('concat:css', function() {
-    return gulp.src(['./src/css/helpers/**/*.css', './src/css/blocks/**/*.css'])
+    var folders = [
+        './src/css/helpers/**/*.css',
+        './src/css/blocks/**/*.css'
+    ];
+    return gulp.src(folders)
            .pipe(concat('style.css'))
            .pipe(gulp.dest('./src/'));
 });
@@ -35,6 +37,11 @@ gulp.task('minify:css', function() {
     return gulp.src('./src/style.css')
            .pipe(cleanCSS())
            .pipe(gulp.dest('./dist/'))
+});
+gulp.task('css', gulpSequence('scss', 'concat:css', 'minify:css'));
+gulp.task('css:watch', function(){
+    gulp.watch('./src/scss/**/*.scss', ['scss']);
+    gulp.watch('./src/css/**/*.css', ['concat:css']);
 });
 
 gulp.task('concat:js', function() {
@@ -47,6 +54,10 @@ gulp.task('minify:js', function() {
            .pipe(minify())
            .pipe(gulp.dest('./dist/'))
 });
+gulp.task('js', gulpSequence('concat:js', 'minify:js'));
+gulp.task('js:watch', function(){
+    gulp.watch('./src/js/**/*.js', ['concat:js']);
+});
 
 gulp.task('pug', function(){
     return gulp.src('./src/pug/**/*.pug')
@@ -56,14 +67,4 @@ gulp.task('pug', function(){
 });
 gulp.task('pug:watch', function(){
     gulp.watch('./src/pug/**/*.pug', ['pug']);
-});
-
-gulp.task('css', gulpSequence('scss', 'concat:css', 'minify:css'));
-gulp.task('css:watch', function(){
-    gulp.watch('./src/scss/**/*.scss', ['scss']);
-    gulp.watch('./src/css/**/*.css', ['concat:css']);
-});
-gulp.task('js', gulpSequence('concat:js', 'minify:js'));
-gulp.task('js:watch', function(){
-    gulp.watch('./src/js/**/*.js', ['concat:js']);
 });
