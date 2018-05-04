@@ -7,6 +7,11 @@
 
 * Usage
     * [Install](#install)
+    * [File structure](#file-structure)
+    * [Adding files](#adding-files)
+        * [Adding CSS](#adding-css)
+        * [Adding JS](#adding-js)
+        * [Adding PUG](#adding-pug)
 * Tasks
     * Building
         * [Default task](#default-task)
@@ -53,7 +58,7 @@ Files and directories marked with `(*)` will appear only after build and would b
     - `package.json`
     - `README.md`
 ### Adding files
-#### CSS
+#### Adding CSS
 Just add your `*.scss` files to `./src/scss/`  
 If you want to add more subfolders to `./src/scss/` directory you need to define them in your `concat:css` task, just add new directories to the `folders` array.
 ```js
@@ -69,9 +74,9 @@ gulp.task('concat:css', function() {
            .pipe(gulp.dest('./src/'));
 });
 ```
-#### JS
+#### Adding JS
 Just add your `*.js` files to `./src/js/` you are free to add more folders in this directory compiler will process them to
-#### PUG
+#### Adding PUG
 Just add your `*.pug` files to `./src/pug/*` you are free to add more folders in this directory compiler will process them to
 
 ----
