@@ -27,7 +27,8 @@ gulp.task('scss', function() {
 gulp.task('concat:css', function() {
     var folders = [
         './src/css/helpers/**/*.css',
-        './src/css/blocks/**/*.css'
+        './src/css/blocks/**/*.css',
+        './src/css/*.css'
     ];
     return gulp.src(folders)
            .pipe(concat('style.css'))

@@ -1,6 +1,10 @@
 # gulp-starter-kit
-
+1. Empty project with configured browser-sync, sass, js, pug.  
+1. Able to build, concat and minify project files.  
+1. Able to run the project in development mode with livereload.
+----
 ## Legend
+
 * Usage
     * [Install](#install)
 * Tasks
@@ -21,13 +25,58 @@
     * Templates
         * [PUG](#pug)
         * [Watch for PUG](#watch-for-pug)
-
-## Usage
-### Install
-    npm install
-
-## Tasks
 ----
+## Usage
+
+### Install
+`npm install`
+### File structure
+Files and directories marked with `(*)` will appear only after build and would be ignored by `.gitignore`  
+`/node_modules` will appear after installation process and would be ignored by `.gitignore`
+- `./node_modules`
+- `./dist (*)`
+    - `/html (*)`
+    - `styles.css (*)`
+    - `script.js (*)`
+    - `script-min.js (*)`
+- `./src`
+    - `/css (*)`
+    - `/html (*)`
+    - `/js`
+    - `/pug`
+    - `/scss`
+    - `styles.css (*)`
+    - `script.js (*)`
+    - `.gitignore`
+    - `gulpfile.js`
+    - `LICENSE`
+    - `package.json`
+    - `README.md`
+### Adding files
+#### CSS
+Just add your `*.scss` files to `./src/scss/`  
+If you want to add more subfolders to `./src/scss/` directory you need to define them in your `concat:css` task, just add new directories to the `folders` array.
+```js
+gulp.task('concat:css', function() {
+    var folders = [
+        './src/css/helpers/**/*.css',
+        './src/css/blocks/**/*.css',
+        // `./src/css/{new directory name}/**/*.css
+        './src/css/*.css'
+    ];
+    return gulp.src(folders)
+           .pipe(concat('style.css'))
+           .pipe(gulp.dest('./src/'));
+});
+```
+#### JS
+Just add your `*.js` files to `./src/js/` you are free to add more folders in this directory compiler will process them to
+#### PUG
+Just add your `*.pug` files to `./src/pug/*` you are free to add more folders in this directory compiler will process them to
+
+----
+## Tasks
+
 ### BUILDING
 #### Default task
 Builds the project and store it into `./dist/`
@@ -37,7 +86,7 @@ gulp
 ```js
 gulp.task('default', ['css', 'js', 'pug'], function() {});
 ```
-----
+
 #### Development mode
 Launches server on localhost:3000 with BrowserSync and directory listing, reloads the page on each change of `*.pug`, `*.scss`, `*.js`
 ```bash
@@ -69,7 +118,7 @@ gulp.task('scss', function() {
            .pipe(gulp.dest('./src/css'));
 });
 ```
-----
+
 #### Concat for CSS
 Concatenate css files from `./src/css/` to single `./src/style.css` file  
 (according to the sequence you defined in `var folders` variable)
@@ -87,7 +136,7 @@ gulp.task('concat:css', function() {
            .pipe(gulp.dest('./src/'));
 });
 ```
-----
+
 #### Minify for CSS
 Minifies your `./src/style.css` and puts it to `./dist/style.css`
 ```bash
@@ -100,7 +149,7 @@ gulp.task('minify:css', function() {
            .pipe(gulp.dest('./dist/'))
 });
 ```
-----
+
 #### CSS
 Combines `gulp scss`, `gulp concat:css`, `minify:css` in one task and run them synchronously
 ```bash
@@ -109,7 +158,7 @@ gulp css
 ```js
 gulp.task('css', gulpSequence('scss', 'concat:css', 'minify:css'));
 ```
-----
+
 #### Watch for CSS
 Watches for changes in your `scss/**/*.scss` and `css/**/*.css` files in `./src/` folder and rebuild `./src/styles.css` on each change
 ```bash
@@ -136,7 +185,7 @@ gulp.task('concat:js', function() {
            .pipe(gulp.dest('./src/'));
 });
 ```
-----
+
 #### Minify for JS
 Minifies your `./src/script.js` and puts into two files `./dist/script.js` and `./dist/script-min.js`
 ```bash
@@ -149,7 +198,7 @@ gulp.task('minify:js', function() {
            .pipe(gulp.dest('./dist/'))
 });
 ```
-----
+
 #### JS
 Combines `gulp concat:js`, `minify:js` in one task and run them synchronously
 ```bash
@@ -158,7 +207,7 @@ gulp js
 ```js
 gulp.task('js', gulpSequence('concat:js', 'minify:js'));
 ```
-----
+
 #### Watch for JS
 Watches for changes in your `js/**/*.js` files in `./src/` folder and rebuild `./src/script.js` on each change
 ```bash
@@ -185,7 +234,7 @@ gulp.task('pug', function(){
            .pipe(gulp.dest('./dist/html'))
 });
 ```
-----
+
 #### Watch for PUG
 Watches for changes `./src/pug/**/*.pug` and run `gulp pug` on each change
 ```bash
