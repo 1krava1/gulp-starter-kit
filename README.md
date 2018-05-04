@@ -1,5 +1,26 @@
 # gulp-starter-kit
 
+## Legend
+* Usage
+    * [Install](#install)
+* Tasks
+    * Building
+        * [Default task](#default-task)
+        * [Development mode](#development-mode)
+    * Styles
+        * [SCSS](#scss)
+        * [Concat for CSS](#concat-for-css)
+        * [Minify for CSS](#minify-for-css)
+        * [CSS](#css)
+        * [Watch for CSS](#watch-for-css)
+    * Scripts
+        * [Concat for JS](#concat-for-js)
+        * [Minify for JS](#minify-for-js)
+        * [JS](#js)
+        * [Watch for JS](#watch-for-js)
+    * Templates
+        * [PUG](#pug)
+        * [Watch for PUG](#watch-for-pug)
 
 ## Usage
 ### Install
@@ -8,7 +29,6 @@
 ## Tasks
 ----
 ### BUILDING
-----
 #### Default task
 Builds the project and store it into `./dist/`
 ```bash
@@ -36,7 +56,7 @@ gulp.task('serve', ['default', 'css:watch', 'js:watch', 'pug:watch'],function(){
 ```
 ----
 ### STYLES
-----
+
 #### SCSS
 Compiles your sass files from `./src/scss/**/*.scss` to `./src/css`
 ```bash
@@ -103,7 +123,7 @@ gulp.task('css:watch', function(){
 ```
 ----
 ### SCRIPTS
-----
+
 #### Concat for JS
 Concatenate all `*.js` files from `./src/js/` to single `./src/script.js` file
 ```bash
@@ -151,7 +171,7 @@ gulp.task('js:watch', function(){
 ```
 ----
 ### TEMPLATES
-----
+
 #### PUG
 Compiles your `*.pug` files from `./src/pug` to `./src/html` and `./dist/html` folders
 ```bash
