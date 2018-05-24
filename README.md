@@ -38,25 +38,37 @@
 ### File structure
 Files and directories marked with `(*)` will appear only after build and would be ignored by `.gitignore`  
 `/node_modules` will appear after installation process and would be ignored by `.gitignore`
-- `./node_modules`
-- `./dist (*)`
-    - `/html (*)`
-    - `styles.css (*)`
-    - `script.js (*)`
-    - `script-min.js (*)`
-- `./src`
-    - `/css (*)`
-    - `/html (*)`
-    - `/js`
-    - `/pug`
-    - `/scss`
-    - `styles.css (*)`
-    - `script.js (*)`
-    - `.gitignore`
-    - `gulpfile.js`
-    - `LICENSE`
-    - `package.json`
-    - `README.md`
+```
+project
+│   
+└───src
+│   │   styles.css (*)
+│   │   script.js (*)
+│   │   .gitignore
+│   │   gulpfile.js
+│   │   LICENSE
+│   │   package.json
+│   │   README.md
+│   │
+│   └───css (*)
+│   │
+│   └───html (*)
+│   │
+│   └───js
+│   │
+│   └───pug
+│   │
+│   └───scss
+│
+└───node_modules (*)
+│   
+└───dist (*)
+    │   styles.css (*)
+    │   script.js (*)
+    │   script-min.js.css (*)
+    │
+    └───html (*)
+```
 ### Adding files
 #### Adding CSS
 Just add your `*.scss` files to `./src/scss/`  
