@@ -18,7 +18,6 @@
         * [Development mode](#development-mode)
     * Styles
         * [SCSS](#scss)
-        * [Concat for CSS](#concat-for-css)
         * [Minify for CSS](#minify-for-css)
         * [CSS](#css)
         * [Watch for CSS](#watch-for-css)
