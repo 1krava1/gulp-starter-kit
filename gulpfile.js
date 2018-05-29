@@ -12,7 +12,7 @@ gulp.task('default', ['css', 'js', 'pug'], function() {});
 gulp.task('serve', ['default', 'css:watch', 'js:watch', 'pug:watch'],function(){
     bs.init({
         server: {
-            baseDir: 'src/html',
+            baseDir: './',
             directory: true
         },
     });
@@ -20,29 +20,18 @@ gulp.task('serve', ['default', 'css:watch', 'js:watch', 'pug:watch'],function(){
 });
 
 gulp.task('scss', function() {
-    return gulp.src('./src/scss/**/*.scss')
+    return gulp.src('./src/scss/style.scss')
            .pipe(sass().on('error', sass.logError))
-           .pipe(gulp.dest('./src/css'));
-});
-gulp.task('concat:css', function() {
-    var folders = [
-        './src/css/helpers/**/*.css',
-        './src/css/blocks/**/*.css',
-        './src/css/*.css'
-    ];
-    return gulp.src(folders)
-           .pipe(concat('style.css'))
-           .pipe(gulp.dest('./src/'));
+           .pipe(gulp.dest('./src'));
 });
 gulp.task('minify:css', function() {
     return gulp.src('./src/style.css')
            .pipe(cleanCSS())
            .pipe(gulp.dest('./dist/'))
 });
-gulp.task('css', gulpSequence('scss', 'concat:css', 'minify:css'));
+gulp.task('css', gulpSequence('scss', 'minify:css'));
 gulp.task('css:watch', function(){
     gulp.watch('./src/scss/**/*.scss', ['scss']);
-    gulp.watch('./src/css/**/*.css', ['concat:css']);
 });
 
 gulp.task('concat:js', function() {

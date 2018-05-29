@@ -58,6 +58,8 @@ project
 │   │
 │   └───pug
 │   │
+│   └───fonts
+│   │
 │   └───scss
 │
 └───node_modules (*)
@@ -72,19 +74,13 @@ project
 ### Adding files
 #### Adding CSS
 Just add your `*.scss` files to `./src/scss/`  
-If you want to add more subfolders to `./src/scss/` directory you need to define them in your `concat:css` task, just add new directories to the `folders` array.
-```js
-gulp.task('concat:css', function() {
-    var folders = [
-        './src/css/helpers/**/*.css',
-        './src/css/blocks/**/*.css',
-        // `./src/css/{new directory name}/**/*.css
-        './src/css/*.css'
-    ];
-    return gulp.src(folders)
-           .pipe(concat('style.css'))
-           .pipe(gulp.dest('./src/'));
-});
+If you want to add more styles to `./src/scss/` directory you just need to import them into `./src/scss/style.scss`.
+```scss
+@import './fonts/OpenSans.scss';
+@import './helpers/reset.scss';
+@import './helpers/helpers.scss';
+@import './helpers/base.scss';
+/* @import './path/to/your-file.scss'; */
 ```
 #### Adding JS
 Just add your `*.js` files to `./src/js/` you are free to add more folders in this directory compiler will process them to
@@ -133,24 +129,6 @@ gulp.task('scss', function() {
     return gulp.src('./src/scss/**/*.scss')
            .pipe(sass().on('error', sass.logError))
            .pipe(gulp.dest('./src/css'));
-});
-```
-
-#### Concat for CSS
-Concatenate css files from `./src/css/` to single `./src/style.css` file  
-(according to the sequence you defined in `var folders` variable)
-```bash
-gulp concat:css
-```
-```js
-gulp.task('concat:css', function() {
-    var folders = [
-        './src/css/helpers/**/*.css',
-        './src/css/blocks/**/*.css'
-    ];
-    return gulp.src(folders)
-           .pipe(concat('style.css'))
-           .pipe(gulp.dest('./src/'));
 });
 ```
 
